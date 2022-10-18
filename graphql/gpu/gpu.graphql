@@ -1,0 +1,17 @@
+query GPUS {
+  gPUs {
+    id
+    slug
+    title
+    brand
+    price
+    promotion
+    newProduct
+    onDiscount
+    stock
+    images {
+      url
+    }
+  }
+}
+

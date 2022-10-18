@@ -1,0 +1,310 @@
+query PRODUCTS {
+  cPUs {
+    id
+    slug
+    title
+    brand
+  }
+  gPUs {
+    id
+    slug
+    title
+    brand
+  }
+  laptops {
+    id
+    slug
+    title
+    brand
+  }
+  motherboards {
+    id
+    slug
+    title
+    brand
+  }
+  storage_Equipment {
+    id
+    slug
+    title
+    brand
+  }
+}
+
+query ProductSlugData {
+  gPUs {
+    id
+    images {
+      url
+    }
+    onDiscount
+    newProduct
+    promotion
+    stock
+    brand
+    price
+    title
+    slug
+  }
+  cPUs {
+    id
+    images {
+      url
+    }
+    onDiscount
+    newProduct
+    promotion
+    stock
+    brand
+    price
+    title
+    slug
+  }
+  laptops {
+    id
+    images {
+      url
+    }
+    onDiscount
+    newProduct
+    promotion
+    stock
+    brand
+    price
+    title
+    slug
+  }
+  motherboards {
+    id
+    images {
+      url
+    }
+    onDiscount
+    newProduct
+    promotion
+    stock
+    brand
+    price
+    title
+    slug
+  }
+  storage_Equipment {
+    id
+    images {
+      url
+    }
+    onDiscount
+    newProduct
+    promotion
+    stock
+    brand
+    price
+    title
+    slug
+  }
+}
+
+query Brand {
+  gPUs {
+    id
+    price
+    slug
+    title
+    brand
+    promotion
+    newProduct
+    onDiscount
+    manufacturer
+    manufacturerLink
+    warranty
+    images {
+      url
+    }
+    description {
+      raw
+    }
+    discountPercent
+    stock
+  }
+}
+
+query PromotionQuery {
+  cPUs(where: { OR: [{ newProduct: true }, { promotion: true }] }) {
+    id
+    images {
+      url
+    }
+    stock
+    price
+    newProduct
+    onDiscount
+    promotion
+    title
+    slug
+    subtitle
+    discountPercent
+  }
+  gPUs(where: { OR: { newProduct: true, promotion: true } }) {
+    id
+    images {
+      url
+    }
+    stock
+    price
+    newProduct
+    onDiscount
+    promotion
+    title
+    slug
+    subtitle
+    discountPercent
+  }
+  laptops(where: { OR: { newProduct: true, promotion: true } }) {
+    id
+    images {
+      url
+    }
+    stock
+    price
+    newProduct
+    onDiscount
+    promotion
+    title
+    slug
+    subtitle
+    discountPercent
+  }
+  motherboards(where: { OR: { newProduct: true, promotion: true } }) {
+    id
+    images {
+      url
+    }
+    stock
+    price
+    newProduct
+    onDiscount
+    promotion
+    title
+    slug
+    subtitle
+    discountPercent
+  }
+  storage_Equipment(where: { OR: { newProduct: true, promotion: true } }) {
+    id
+    images {
+      url
+    }
+    stock
+    price
+    newProduct
+    onDiscount
+    promotion
+    title
+    slug
+    subtitle
+    discountPercent
+  }
+}
+
+query ProductData($slug: String!) {
+  gPUs(where: { slug: $slug }) {
+    id
+    images {
+      url
+    }
+    onDiscount
+    description {
+      raw
+    }
+    newProduct
+    promotion
+    stock
+    brand
+    price
+    title
+    slug
+    subtitle
+    manufacturerLink
+    warranty
+  }
+  cPUs {
+    id
+    images {
+      url
+    }
+    onDiscount
+    description {
+      raw
+    }
+    newProduct
+    promotion
+    stock
+    brand
+    price
+    title
+    slug
+    subtitle
+    manufacturerLink
+    warranty
+  }
+  laptops {
+    id
+    images {
+      url
+    }
+    onDiscount
+    description {
+      raw
+    }
+    newProduct
+    promotion
+    stock
+    brand
+    price
+    title
+    slug
+    subtitle
+    manufacturerLink
+    warranty
+  }
+  motherboards {
+    id
+    images {
+      url
+    }
+    onDiscount
+    description {
+      raw
+    }
+    newProduct
+    promotion
+    stock
+    brand
+    price
+    title
+    slug
+    subtitle
+    manufacturerLink
+    warranty
+  }
+  storage_Equipment {
+    id
+    images {
+      url
+    }
+    onDiscount
+    description {
+      raw
+    }
+    newProduct
+    promotion
+    stock
+    brand
+    price
+    title
+    slug
+    subtitle
+    manufacturerLink
+    warranty
+  }
+}

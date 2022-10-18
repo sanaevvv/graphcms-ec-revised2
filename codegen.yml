@@ -1,0 +1,9 @@
+overwrite: true
+schema: "https://api-ap-northeast-1.hygraph.com/v2/cl8rlcxyv31tb01tc6p4ggldt/master"
+documents: "graphql/**/*.graphql"
+ignoreNoDocuments: true,
+generates:
+  generated.tsx:
+    preset: "client"
+    plugins: []
+
