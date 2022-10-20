@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ProductsDocument, ProductsQuery } from '../generated.tsx/graphql';
+import { ProductsDocument, ProductsQuery } from '../generated/graphql';
 import { useQuery } from '@apollo/client';
 import { ListItem } from './ListItem';
 

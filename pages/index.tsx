@@ -8,7 +8,7 @@ import TopBar from '../components/TopBar';
 import {
   PromotionQueryDocument,
   PromotionQueryQuery,
-} from '../generated.tsx/graphql';
+} from '../generated/graphql';
 
 type ProductCard = {
   id: string;
@@ -25,6 +25,7 @@ type ProductCard = {
     __typename?: 'Asset';
     url: string;
   } | null;
+  warranty?: number | null;
 };
 
 const Home: NextPage = () => {
@@ -56,18 +57,16 @@ const Home: NextPage = () => {
   let myItems: ProductCard[] = [];
 
   productList.map((items) => {
-    console.log('items', items);
+    // console.log('items', items);
 
-    items.map((item: ProductCard) => {
-      myItems.push(item);
-      return;
-    })
-
+    items.map((item) => {
+      return myItems.push(item);
+    });
   });
 
-// console.log(myItems);
+  // console.log(myItems);
 
-  const productCard = myItems.map((item) => (
+  const productCards = myItems.map((item) => (
     <Link href={`/products/${item.slug}`} key={item.id}>
       <a>
         <ProductCard item={item} />
@@ -86,7 +85,7 @@ const Home: NextPage = () => {
         <div className="main-container">
           <div className="main-product-section">
             <TopBar title={topBarTitle} />
-            <div className="product-card">{productCard}</div>
+            <div className="product-card">{productCards}</div>
           </div>
         </div>
       </Layout>

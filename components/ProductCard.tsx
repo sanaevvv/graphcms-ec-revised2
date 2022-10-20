@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import {
   useGetItemDetails,
   ProductCard as ProductCardType,
@@ -12,7 +12,7 @@ type Props = {
   item: ProductCardType;
 };
 
-export const ProductCard = ({ item }: Props) => {
+export const ProductCard: FC<Props> = ({ item }) => {
   const {
     isNewProd,
     isPromoProd,
@@ -25,11 +25,11 @@ export const ProductCard = ({ item }: Props) => {
     id,
     title,
     stock,
-    // manufacturer
+    warranty,
+    manufacturer
   } = useGetItemDetails(item);
 
   console.log('discountPrice', discountPrice);
-
 
   return (
     <div>
@@ -77,7 +77,10 @@ export const ProductCard = ({ item }: Props) => {
         <div>
           <Link href="">
             <a>
-              <button disabled={stock && stock < 1 ? true : false} className="cart-btn">
+              <button
+                disabled={stock && stock < 1 ? true : false}
+                className="cart-btn"
+              >
                 {stock && stock > 0 ? 'Add to Cart' : 'out of Stock'}
                 <IconContext.Provider value={{ className: 'cart-icons' }}>
                   <AiOutlineShoppingCart />

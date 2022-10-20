@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { FC, useState } from 'react';
-import { ProductsQuery } from '../generated.tsx/graphql';
+import { ProductsQuery } from '../generated/graphql';
 
 type Props = {
   itemDetails: {

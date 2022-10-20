@@ -5,98 +5,88 @@ import TopBar from '../../../components/TopBar';
 import { ProductCard } from '../../../components/ProductCard';
 import { gql, useQuery } from '@apollo/client';
 import Link from 'next/link';
+import {
+  ProductDataDocument,
+  ProductDataQuery,
+} from '../../../generated/graphql';
 
 const BrandOfProducts: NextPage = () => {
   const router = useRouter();
-  const { brand }  = router.query;
-  const splitBrand: string[] =brand && typeof brand==='string'? brand.split('-') : [];
+  const { brand } = router.query;
+  const splitBrand: string[] =
+    brand && typeof brand === 'string' ? brand.split('-') : [];
 
   const theBrand = splitBrand[0];
   const theProducts = splitBrand[1];
-  // console.log();
+  // console.log('theBrand', theBrand);
+  // console.log('theProducts', theProducts);
 
-  const query = gql`
-   ($theBrand: String!){
-    ${theProducts}(where: { brand: $theBrand }) {
-      id
-      price
-      slug
-      title
-      brand
-      promotion
-      newProduct
-      onDiscount
-      manufacturer
-      manufacturerLink
-      images {
-        url
-      }
-      description {
-        raw
-      }
-      discountPercent
-      stock
+  // const query = gql`
+  //   query ($slug: String!) {
+  //   ${theProducts}(where: { slug: $slug }) {
+  //     id
+  //     images {
+  //       url
+  //     }
+  //     onDiscount
+  //     description {
+  //       raw
+  //     }
+  //     newProduct
+  //     promotion
+  //     stock
+  //     brand
+  //     price
+  //     title
+  //     slug
+  //     subtitle
+  //     manufacturerLink
+  //     warranty
+  //   }
+  // }
+  //  `;
+
+  const { data, loading, error } = useQuery<ProductDataQuery>(
+    ProductDataDocument,
+    {
+      variables: { slug: theBrand },
     }
-  `;
-
-  type Data = {
-    id: string;
-    price?: number | null;
-    slug?: string | null;
-    title: string;
-    brand?: string | null;
-    promotion?: boolean | null;
-    newProduct?: boolean | null;
-    onDiscount?: boolean | null;
-    manufacturer?: string | null;
-    manufacturerLink?: string | null;
-    warrancy?: number | null;
-    discountPercent?: number | null;
-    stock?: number | null;
-    images?: {
-      __typename?: 'Asset';
-      url: string;
-    } | null;
-    description?: {
-      __typename?: 'RichText';
-      raw: any;
-    } | null;
-  }[];
-
-  const { data, loading, error } = useQuery<Data>(query, {
-    variables: { slug: theBrand },
-  });
+  );
 
   if (loading) {
     <main>loading...</main>;
   }
   if (error || !data) {
-    return(
-      <main>{error?.message || 'エラーです'}</main>
-    )
+    return <main>{error?.message || 'エラーです'}</main>;
   }
 
-  const listItem = Object.keys(data).map((item) => {
-    // console.log('item', item);
-    // console.log('item', data[item]);
-    const productItem = data[item].map((product) => {
-      return (
-        <Link href={`/products/${product.slug}`} key={product.id}>
-          <li>{product.brand}</li>
-          <a>
-            <ProductCard item={product} />
-          </a>
-        </Link>
-      );
-    });
-    return productItem;
+  type ProductType = Omit<ProductDataQuery, '__typename'>;
+
+  function maphoge(data: ProductDataQuery): ProductType {
+    const returnedTarget = Object.assign({}, data); //dataのクローンを作る
+    delete returnedTarget.__typename; //__typenameを削除
+    return returnedTarget;
+  }
+
+  const _data = data ? maphoge(data) : null;
+  const itemData = _data ? Object.values(_data) : [];
+  const productItem = itemData[1].map((item) => {
+    return (
+      <Link href={`/products/${item.slug}`} key={item.id}>
+        <a>
+          <ProductCard item={item} />
+        </a>
+      </Link>
+    );
   });
+
+  // });
 
   return (
     <Layout>
       <>
         <TopBar title={theBrand} />
-        <div className="card-area">{listItem}</div>
+        <div className="card-area">{productItem}</div>
       </>
     </Layout>
   );

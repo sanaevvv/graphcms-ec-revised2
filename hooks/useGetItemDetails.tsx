@@ -20,7 +20,7 @@ export type ProductCard = {
     raw: RichTextContent;
   } | null;
   manufacturerLink?: string | null;
-  warranty: string | null;
+  warranty?: number | null;
 };
 
 function insertDecimal(num: number) {
@@ -54,6 +54,7 @@ export const useGetItemDetails = (item: ProductCard) => {
 
   const manufacturer = item.manufacturerLink;
   const warranty = item.warranty;
+
 
   return {
     isNewProd,

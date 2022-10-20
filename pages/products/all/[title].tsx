@@ -5,9 +5,9 @@ import TopBar from '../../../components/TopBar';
 import { ProductCard } from '../../../components/ProductCard';
 import { gql, useQuery } from '@apollo/client';
 import Link from 'next/link';
-import { ProductSlugDataQuery } from '../../../generated.tsx/graphql';
+import { ProductSlugDataQuery } from '../../../generated/graphql';
 
-const Title: NextPage => {
+const Title: NextPage = () => {
   const router = useRouter();
   const { title } = router.query;
 
@@ -62,26 +62,22 @@ const Title: NextPage => {
   const topBarTitle =
     titleKey.charAt(0).toUpperCase() + titleKey.slice(1).replace('_', ' ');
 
-  const listItem = Object.keys(data).map((item) => {
-    // console.log('item', item);
-    // console.log('item', data[item]);
-    const productItem = data[item].map((product) => {
-      return (
-        <Link href={`/products/${product.slug}`} key={product.id}>
-          {/* <li>{product.brand}</li> */}
-          <a>
-            <ProductCard item={product} />
-          </a>
-        </Link>
-      );
-    });
-    return productItem;
+  const productList = Object.values(data);
+
+  const listItem = productList.map((item) => {
+    return (
+      <Link href={`/products/${item.slug}`} key={item.id}>
+        <a>
+          <ProductCard item={item} />
+        </a>
+      </Link>
+    );
   });
 
   return (
     <Layout>
       <>
-        <TopBar title={topBarTitle ? topBarTitle : 'Product'} />
+        <TopBar title={topBarTitle} />
         <div className="card-area">{listItem}</div>
       </>
     </Layout>

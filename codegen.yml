@@ -1,9 +1,11 @@
 overwrite: true
 schema: "https://api-ap-northeast-1.hygraph.com/v2/cl8rlcxyv31tb01tc6p4ggldt/master"
-documents: "graphql/**/*.graphql"
+# documents: "graphql/**/*.graphql"
+documents: "graphql/products/products.graphql"
 ignoreNoDocuments: true,
 generates:
-  generated.tsx:
+  generated:
     preset: "client"
-    plugins: []
-
+    plugins: ["typescript", "typescript-react-apollo", "typescript-operations"]
+    # config:
+    #   skipTypename: true
